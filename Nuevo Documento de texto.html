@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ángel Zamora - Estudiante Transformador</title>
+    <!-- Carga de Tailwind CSS para el estilizado -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos base que imitan el PDF: Negro, Blanco y Rojo */
+        :root {
+            --color-primary: #000000;
+            --color-secondary: #FFFFFF;
+            --color-accent: #E50000; /* Un rojo vibrante */
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-primary);
+            color: var(--color-secondary);
+            scroll-behavior: smooth;
+        }
+
+        /* Clase para el borde de "Reel de película" */
+        .film-border {
+            /* Simula el borde negro */
+            border-left: 10px solid var(--color-primary); 
+            border-right: 10px solid var(--color-primary);
+        }
+
+        /* Estilo para simular la "película" en la sección de portada (fondo blanco/texto negro) */
+        .film-overlay {
+            position: relative;
+            background-color: var(--color-secondary);
+            color: var(--color-primary);
+        }
+
+        /* Pseudo-elementos para los "agujeros" laterales del film */
+        .film-overlay::before,
+        .film-overlay::after {
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: 50px; 
+            top: 0;
+            z-index: 10;
+        }
+
+        .film-overlay::before {
+            left: 0;
+            background-color: var(--color-primary);
+        }
+
+        .film-overlay::after {
+            right: 0;
+            background-color: var(--color-primary);
+        }
+
+        /* Animación y resaltado de la línea roja divisoria */
+        .divider {
+            height: 4px;
+            background-color: var(--color-accent);
+            width: 50%;
+            margin-left: auto;
+            margin-right: auto;
+            transition: width 0.5s ease-in-out;
+        }
+
+        .section:hover .divider {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--color-accent);
+            text-decoration: underline;
+            text-decoration-thickness: 2px;
+            text-underline-offset: 4px;
+        }
+        
+        /* Estilo para los títulos grandes en rojo */
+        .title-accent {
+            color: var(--color-accent);
+            font-weight: 900;
+            line-height: 1.1;
+        }
+
+        /* Ocultar el scrollbar en algunos navegadores */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        
+        /* Estilo para la imagen principal de la portada */
+        .portrait-frame {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-width: 350px;
+            height: auto;
+            border: 2px solid var(--color-accent);
+            box-shadow: 0 0 30px rgba(229, 0, 0, 0.4);
+            transition: transform 0.3s ease;
+        }
+        
+        .portrait-frame:hover {
+            transform: scale(1.03);
+        }
+    </style>
+</head>
+<body class="hide-scrollbar">
+
+    <!-- Script para navegación suave (JavaScript) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Inicialización de JS para el desplazamiento suave
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = e.target.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 70, // Ajuste para el nav fijo
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
+    <!-- Navegación Fija -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-sm shadow-xl p-4 md:px-12">
+        <nav class="flex justify-between items-center max-w-7xl mx-auto">
+            <div class="text-lg font-extrabold text-white">Ángel Zamora</div>
+            <div class="flex space-x-4 md:space-x-8 text-sm md:text-base font-medium">
+                <a href="#inicio" class="nav-link text-white transition-colors duration-200">Inicio</a>
+                <a href="#sobre-mi" class="nav-link text-white transition-colors duration-200">Sobre mí</a>
+                <a href="#proyectos" class="nav-link text-white transition-colors duration-200">Proyectos</a>
+                <a href="#contacto" class="nav-link text-white transition-colors duration-200">Contacto</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="pt-[70px]">
+        <!-- SECCIÓN 1: PORTADA / INICIO -->
+        <section id="inicio" class="relative min-h-screen flex items-center justify-center film-overlay pt-8 pb-16">
+            <!-- Texto de borde izquierdo (referencia al PDF) -->
+            <div class="absolute top-20 left-4 md:left-12 text-xs font-mono transform rotate-90 origin-top-left text-white opacity-75">
+                TRA 400 | 27A | MINWIN ZAM
+            </div>
+            <!-- Contenido Principal -->
+            <div class="max-w-7xl w-full px-8 md:px-12 flex flex-col md:flex-row items-center gap-12 text-center md:text-left">
+                <!-- Columna de Texto -->
+                <div class="md:w-1/2 order-2 md:order-1 flex flex-col items-center md:items-start">
+                    <h1 class="text-5xl md:text-7xl lg:text-8xl font-black title-accent text-center md:text-left leading-tight">
+                        Ángel Zamora
+                    </h1>
+                    <p class="text-xl md:text-3xl font-light mt-2 text-black">
+                        un <strong class="font-bold">estudiante transformador</strong>
+                    </p>
+                    <p class="text-lg md:text-xl font-medium mt-4 text-black border-l-4 border-red-600 pl-4 py-1">
+                        Estudiante de MKT en la ULSA
+                    </p>
+                    <a href="#sobre-mi" class="mt-8 px-6 py-3 bg-red-600 text-white font-semibold rounded-full shadow-lg hover:bg-red-700 transition duration-300 transform hover:scale-105">
+                        CONOCEME UN POCO MÁS
+                    </a>
+                </div>
+
+                <!-- Columna de Imagen (Rostro - 1ra imagen solicitada) -->
+                <div class="md:w-1/2 order-1 md:order-2 flex justify-center">
+                    <div class="portrait-frame">
+                        <!-- IMAGEN 1: ROSTRO (Placeholder de retrato profesional) -->
+                        <img src="https://placehold.co/400x550/000000/FFFFFF?text=RETRATO+PROFESIONAL" 
+                             alt="Retrato de Ángel Zamora (Image (1).jpeg)" 
+                             class="w-full h-auto object-cover"
+                             onerror="this.onerror=null;this.src='https://placehold.co/400x550/000000/FFFFFF?text=FOTO+ANGEL';" />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2: SOBRE MÍ -->
+        <section id="sobre-mi" class="section py-16 md:py-24 bg-white text-black film-border">
+            <div class="max-w-7xl mx-auto px-8 md:px-12">
+                <h2 class="text-4xl md:text-5xl font-black text-red-600 text-center">SOBRE MÍ</h2>
+                <div class="divider my-6"></div>
+                
+                <div class="grid md:grid-cols-2 gap-12 items-start mt-10">
+                    <!-- Detalle Sobre Mí -->
+                    <div class="space-y-6">
+                        <p class="text-lg leading-relaxed">
+                            Tengo 18 años, y estoy comenzando el primer semestre de la licenciatura en Mercadotecnia en la Universidad La Salle Unidad Condesa, me entusiasma la Mercadotecnia ya que considero que es una carrera bastante actual, con mucha creatividad, innovación y mucho campo laboral.
+                        </p>
+                        <div class="flex items-center space-x-4 border-l-4 border-red-600 pl-4 py-2">
+                            <!-- IMAGEN 2: Logo ULSA (Placeholder de logo universitario) -->
+                            <img src="https://placehold.co/120x40/E50000/FFFFFF?text=LOGO+ULSA" 
+                                 alt="Logo Universidad La Salle México (images.png)" 
+                                 class="h-10 w-auto" 
+                                 onerror="this.onerror=null;this.src='https://placehold.co/100x40/FFFFFF/000000?text=ULSA';" />
+                            <span class="text-xl font-semibold">Universidad La Salle México</span>
+                        </div>
+                    </div>
+                    
+                    <!-- HABILIDADES -->
+                    <div class="p-6 bg-gray-100 rounded-lg shadow-md">
+                        <h3 class="text-2xl font-bold text-red-600 mb-4">HABILIDADES</h3>
+                        <p class="mb-4 text-gray-700">
+                            Entre mis habilidades y conocimientos destacan que soy trilingüe, mi lengua materna es el español, pero aparte hablo inglés y francés.
+                        </p>
+                        <ul class="list-disc list-inside text-gray-700 space-y-2">
+                            <li>Innovador y líder</li>
+                            <li>Empático y trabajo en equipo</li>
+                            <li>Resolución de problemas y creación de soluciones democráticas</li>
+                            <li>Manejo de paquetería Microsoft y otras herramientas tecnológicas</li>
+                        </ul>
+                        <!-- IMAGEN 3: Viajes/Estudios (Placeholder de un icono de viaje/idioma) -->
+                        <div class="mt-6 flex justify-center">
+                            <img src="https://placehold.co/100x100/000000/FFFFFF?text=IDIOMAS" 
+                                 alt="Icono de viajes y tecnología (descarga.jfif)" 
+                                 class="h-24 w-auto rounded-xl shadow-lg"
+                                 onerror="this.onerror=null;this.src='https://placehold.co/100x100/CCCCCC/000000?text=TRILINGUE';" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- SECCIÓN 3: PROYECTOS y PASIONES -->
+        <section id="proyectos" class="section py-16 md:py-24 bg-black text-white film-border">
+            <div class="max-w-7xl mx-auto px-8 md:px-12">
+                <h2 class="text-4xl md:text-5xl font-black text-red-600 text-center">PROYECTOS Y PASIONES</h2>
+                <div class="divider my-6"></div>
+
+                <div class="grid lg:grid-cols-3 gap-10 mt-10">
+                    
+                    <!-- Proyectos / Certificaciones -->
+                    <div class="lg:col-span-1 p-6 border-2 border-red-600 rounded-lg">
+                        <h3 class="text-2xl font-bold text-red-600 mb-4">PROYECTOS</h3>
+                        <p class="mb-4 text-gray-300">
+                            Actualmente cuento con certificaciones de idiomas y cursos de marketing y emprendimiento.
+                        </p>
+                        <div class="space-y-4">
+                            <h4 class="font-semibold text-xl text-white">Certificaciones de Idiomas:</h4>
+                            <ul class="list-disc list-inside ml-4 text-gray-300 space-y-1">
+                                <li>Inglés: TOEFL, Cambridge Certification: B2</li>
+                                <li>Francés: Certificación ante el IFAL: A2</li>
+                            </ul>
+                            <h4 class="font-semibold text-xl text-white pt-2">Cursos en línea:</h4>
+                            <ul class="list-disc list-inside ml-4 text-gray-300 space-y-1">
+                                <li>Marketing y Emprendimiento en Santander Academy y Coursera.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Pasiones -->
+                    <div class="lg:col-span-2 space-y-10">
+                        <div class="p-6 bg-gray-900 rounded-lg">
+                            <h3 class="text-2xl font-bold text-red-600 mb-4">PASIONES</h3>
+                            <div class="grid sm:grid-cols-2 gap-8 items-center">
+                                <ul class="list-disc list-inside ml-4 text-gray-300 space-y-2 text-lg">
+                                    <li>La natación</li>
+                                    <li>Los viajes</li>
+                                    <li>La música y cantar</li>
+                                    <li>Convivir con amigos y familia</li>
+                                </ul>
+                                <!-- IMAGEN 4: Natación (Placeholder de una piscina o nadador) -->
+                                <div class="flex justify-center">
+                                    <img src="https://placehold.co/200x150/E50000/FFFFFF?text=NATACION" 
+                                         alt="Hombre nadando en una piscina (images 2 .png)" 
+                                         class="h-40 w-auto rounded-lg shadow-xl object-cover" 
+                                         onerror="this.onerror=null;this.src='https://placehold.co/200x150/000000/FFFFFF?text=NATACION';" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Otra Pasión (Música) -->
+                        <div class="p-6 bg-gray-900 rounded-lg">
+                            <h3 class="text-2xl font-bold text-red-600 mb-4">MÚSICA Y CANTO</h3>
+                            <div class="grid sm:grid-cols-2 gap-8 items-center">
+                                <p class="text-gray-300 text-lg">
+                                    Una de mis mayores pasiones es la música, disfrutando tanto escucharla como cantar. Es una forma de expresar creatividad y conexión con los demás.
+                                </p>
+                                <!-- IMAGEN 5: Micrófono (Placeholder de un micrófono) -->
+                                <div class="flex justify-center">
+                                    <img src="https://placehold.co/200x150/000000/E50000?text=MICROFONO" 
+                                         alt="Micrófono en un escenario (images 4.jfif)" 
+                                         class="h-40 w-auto rounded-lg shadow-xl object-cover" 
+                                         onerror="this.onerror=null;this.src='https://placehold.co/200x150/000000/FFFFFF?text=MUSICA';" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 4: CONTACTO -->
+        <section id="contacto" class="section py-16 md:py-24 bg-white text-black film-border">
+            <div class="max-w-7xl mx-auto px-8 md:px-12">
+                <h2 class="text-4xl md:text-5xl font-black text-red-600 text-center">CONTACTO</h2>
+                <div class="divider my-6"></div>
+
+                <div class="grid md:grid-cols-3 gap-8 mt-10 text-center">
+                    <!-- Teléfono -->
+                    <div class="p-6 border border-gray-300 rounded-lg hover:border-red-600 transition duration-300">
+                        <i class="fas fa-phone-alt text-4xl text-red-600 mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">TELÉFONO</h3>
+                        <p class="text-lg">+52 5511992258</p>
+                    </div>
+
+                    <!-- Correo -->
+                    <div class="p-6 border border-gray-300 rounded-lg hover:border-red-600 transition duration-300">
+                        <i class="fas fa-envelope text-4xl text-red-600 mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">CORREO</h3>
+                        <p class="text-lg break-all">angelantoniozamora98@gmail.com</p>
+                    </div>
+
+                    <!-- Redes Sociales -->
+                    <div class="p-6 border border-gray-300 rounded-lg hover:border-red-600 transition duration-300">
+                        <i class="fas fa-share-alt text-4xl text-red-600 mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">REDES SOCIALES</h3>
+                        <div class="space-y-1">
+                            <p class="text-lg">INSTAGRAM: <span class="font-semibold text-red-600">@a_zc26</span></p>
+                            <p class="text-lg">TIKTOK: <span class="font-semibold text-red-600">@a_zc26</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-12 text-sm text-gray-500">
+                    <p>tel: 5511992258 | ig & tt: @a_zc26 | mail: angelantoniozamora98@gmail.com</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer (Menú repetido para consistencia visual) -->
+    <footer class="bg-black text-white p-4 md:px-12">
+        <nav class="flex justify-center space-x-4 md:space-x-8 text-sm md:text-base font-medium">
+            <a href="#inicio" class="nav-link text-gray-400 transition-colors duration-200">Inicio</a>
+            <a href="#sobre-mi" class="nav-link text-gray-400 transition-colors duration-200">Sobre mí</a>
+            <a href="#proyectos" class="nav-link text-gray-400 transition-colors duration-200">Proyectos</a>
+            <a href="#contacto" class="nav-link text-gray-400 transition-colors duration-200">Contacto</a>
+        </nav>
+    </footer>
+
+    <!-- Script para Font Awesome (Iconos de redes) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+</html>
